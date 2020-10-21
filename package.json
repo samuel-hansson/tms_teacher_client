@@ -1,0 +1,22 @@
+{
+  "name": "tms_teacher_client",
+  "version": "1.0.0",
+  "description": "teaching management system teacher client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samuel-hansson/tms_teacher_client.git"
+  },
+  "author": "samuel hansson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samuel-hansson/tms_teacher_client/issues"
+  },
+  "homepage": "https://github.com/samuel-hansson/tms_teacher_client#readme",
+  "dependencies": {
+    "electron": "^10.1.4"
+  }
+}
