@@ -31,9 +31,13 @@ app.on('ready',function(){
     });
 
 
-    //使用模板创建菜单
+    //使用模板加载菜单
     const menu = Menu.buildFromTemplate(menuTemplate);
-    //插入菜单
+    //给窗口设置菜单
+    /*
+        此处没有指定是哪个窗口设置菜单，所以，程序创建的所有的窗口都会有这个菜单，
+        无论是主窗口还是添加学生窗口
+        */
     Menu.setApplicationMenu(menu);
 });
 
@@ -64,8 +68,9 @@ function createStudentWindow(){
 }
 
 //创建菜单模板
-//菜单模板是一个对象数组，在JS中，一对花括号“{}”，就是一个对象。
+//菜单模板是一个对象数组，在JS中，一对花括号“{}”，就是一个对象，代表一个菜单项
 const menuTemplate = [
+    //一个菜单项就是一个对象
     {
         label: '学生管理',      //菜单项的名字
         //submenu代表该菜单项还有子菜单，submenu也是一个对象数组
@@ -114,3 +119,35 @@ if(process.platform == 'darwin'){
 
 console.log(`进程的id是： ${process.pid}`);
 
+/*
+    如果应用不是在生产环境下，可以给应用控制打开Chrome自带的开发者工具功能，做法是
+    定义一个菜单项，给其添加事件处理，在事件处理中调用toggleDevTools方法
+    
+*/
+if(process.env.NODE_ENV !== 'production'){
+    menuTemplate.push({
+        label: 'Developer Tools',
+        submenu: [
+            {
+                label: 'Toggle DevTools',
+                accelerator: process.platform == 'darwin' ? 'Command+I' :
+                'Ctrl+I',
+                /*
+                item参数代表用户点击的菜单项，focusedWindow参数代表获得
+                焦点的窗口。因为窗口有多个，每个窗口的菜单栏都一样，因此，
+                哪个窗口点击了，参数focusedWindow就代表哪个窗口。
+                */
+                click(item, focusedWindow){
+                    /*
+                        toggleDevTools方法是webContents类的方法（参见JavaScript(1).docx文件）。
+
+                    */
+                    focusedWindow.toggleDevTools();
+                }
+            },
+            {
+                role: 'reload'
+            }
+        ]
+    });
+}
