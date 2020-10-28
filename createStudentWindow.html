@@ -12,5 +12,21 @@
             <button type="submit">添加学生</button>
         </form>
     </body>
-<script src="renderer.js"></script>
+<script>
+    const { ipcRenderer } = require('electron');
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit',function(e){
+        e.preventDefault();
+        console.log('create student window form submit');
+        const name = document.querySelector('#name').value;
+
+        /*
+        ipcRenderer可以把数据发送给index.js（运行在主进程）,
+        有点类似于Socket IO传输：给要发送给服务器端的数据起个名字，然后在服务器端通过相同
+        的名字接收数据
+        */
+        ipcRenderer.send("create_student",name);
+    });
+</script>
 </html>

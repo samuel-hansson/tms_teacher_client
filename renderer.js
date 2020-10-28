@@ -7,11 +7,17 @@ form.addEventListener('submit',function(e){
   console.log('create student window form submit');
   const name = document.querySelector('#name').value;
 
+  /*
+  ipcRenderer可以把数据发送给index.js（运行在主进程）,
+  有点类似于Socket IO传输：给要发送给服务器端的数据起个名字，然后在服务器端通过相同
+  的名字接收数据
+  */
+  ipcRenderer.send("create_student",name);
 });
 
-console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
+// console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
 
-ipcRenderer.on('asynchronous-reply', (event, arg) => {
-  console.log(arg) // prints "pong"
-})
-ipcRenderer.send('asynchronous-message', 'ping')
+// ipcRenderer.on('asynchronous-reply', (event, arg) => {
+//   console.log(arg) // prints "pong"
+// })
+// ipcRenderer.send('asynchronous-message', 'ping')

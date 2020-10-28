@@ -2,7 +2,7 @@ const electron = require('electron');
 const url = require('url');
 const path = require('path');
 
-const {app, BrowserWindow, Menu} = electron;
+const {app, BrowserWindow, Menu, ipcMain} = electron;
 
 //通常electron应用会包含一个窗口
 let mainWindow;
@@ -12,7 +12,11 @@ let StudentWindow;
 app.on('ready',function(){
     
     //创建主窗口
-    mainWindow = new BrowserWindow({});
+    mainWindow = new BrowserWindow({
+        ​​​​​​​webPreferences: {
+            nodeIntegration: true
+         }
+    });
 
     //加载html页面
     mainWindow.loadURL(url.format({
@@ -46,6 +50,7 @@ app.on('ready',function(){
 function createStudentWindow(){
     //创建添加学生的窗口，代码跟前面创建主窗口代码一样
     StudentWindow = new BrowserWindow({
+
         width: 300,
         height: 200,
         title:  '添加学生'
@@ -66,6 +71,19 @@ function createStudentWindow(){
         StudentWindow = null;
     });
 }
+
+
+/*
+接收来自createStudentWindow窗口的createStudentWindow.html页面的数据。
+回调函数的第二个参数student保存着createStudentWindow窗口的createStudentWindow.html页面
+传递过来的数据
+*/
+ipcMain.on("create_student",function(event, student){
+    console.log(student);
+    //把数据传递给在主窗口mainWindow显示的页面mainWindow.html上
+    mainWindow.webContents.send("create_student",student);
+    StudentWindow.close();
+});
 
 //创建菜单模板
 //菜单模板是一个对象数组，在JS中，一对花括号“{}”，就是一个对象，代表一个菜单项
