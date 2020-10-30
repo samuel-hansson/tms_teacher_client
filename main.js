@@ -8,11 +8,20 @@ const {app, BrowserWindow, Menu, ipcMain} = electron;
 let mainWindow;
 let StudentWindow;
 
+
+ipcMain.on('mainWindow',(e,args) => {
+    console.log(args);
+});
+
 //监听代表应用的对象app是否创建好
 app.on('ready',function(){
     
     //创建主窗口
-    mainWindow = new BrowserWindow({});
+    mainWindow = new BrowserWindow({
+        webPreferences: {
+            nodeIntegration: true
+        }
+    });
 
     //加载html页面
     mainWindow.loadURL(url.format({

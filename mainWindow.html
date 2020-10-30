@@ -6,5 +6,10 @@
     <body>
         <h1>教学管理系统</h1>
     </body>
+    <script>
+        const { ipcRenderer } = require('electron');
+        ipcRenderer.send("mainWindow",'from main window on rerderer process');
 
+    </script>
+    </html>
 </html>
