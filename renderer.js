@@ -5,6 +5,7 @@ const form = document.querySelector('form');
 form.addEventListener('submit',function(e){
   e.preventDefault();
   console.log('create student window form submit');
+  // console.log(`进程的id是： ${process.pid}`);
   const name = document.querySelector('#name').value;
 
   /*

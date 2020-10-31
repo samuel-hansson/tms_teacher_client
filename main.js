@@ -55,7 +55,9 @@ app.on('ready',function(){
 function createStudentWindow(){
     //创建添加学生的窗口，代码跟前面创建主窗口代码一样
     StudentWindow = new BrowserWindow({
-
+        webPreferences: {
+            nodeIntegration: true
+        },
         width: 300,
         height: 200,
         title:  '添加学生'
@@ -84,8 +86,11 @@ function createStudentWindow(){
 传递过来的数据
 */
 ipcMain.on("create_student",function(event, student){
-    console.log(student);
-    //把数据传递给在主窗口mainWindow显示的页面mainWindow.html上
+    // console.log(student);
+    /*
+        参数student是主进程接收到的来自渲染进程的数据，现在要把该数据传递给运行在
+        主进程的mainWindow窗口的mainWindow.html页面上显示。
+    */
     mainWindow.webContents.send("create_student",student);
     StudentWindow.close();
 });

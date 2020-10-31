@@ -5,10 +5,22 @@
     </head>
     <body>
         <h1>教学管理系统</h1>
+        <ul></ul>
     </body>
     <script>
         const { ipcRenderer } = require('electron');
         ipcRenderer.send("mainWindow",'from main window on rerderer process');
+        
+        let ul = document.querySelector('ul');
+        // console.log(`进程的id是： ${process.pid}`);
+        
+        ipcRenderer.on('create_student',(e,student) => {
+            let li = document.createElement('li');
+            let nameText = document.createTextNode(student);
+            li.appendChild(nameText);
+            ul.appendChild(li);
+        });
+
 
     </script>
     </html>
