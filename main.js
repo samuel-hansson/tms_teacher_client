@@ -4,6 +4,14 @@ const path = require('path');
 
 const {app, BrowserWindow, Menu, ipcMain} = electron;
 
+/*
+设置环境变量：当程序运行在生产环境中时，设置成production。
+如果不设置这个属性，则程序运行时，可以打开“开发者工具”功能。
+
+通常，在程序需要发布、打包时才会设置该属性选项。
+*/
+process.env.NODE_ENV = 'production';
+
 //通常electron应用会包含一个窗口
 let mainWindow;
 let StudentWindow;
