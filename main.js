@@ -37,6 +37,7 @@ app.on('ready',function(){
         protocol: 'file:',
         slashes: true
     }));
+    // mainWindow.loadURL('https://www.baidu.com/');
 
     /*
     如果不加该事件处理，那么子窗口（添加学生窗口）打开，主窗口关闭的话，
