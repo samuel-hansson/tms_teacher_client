@@ -10,7 +10,7 @@ const {app, BrowserWindow, Menu, ipcMain} = electron;
 
 通常，在程序需要发布、打包时才会设置该属性选项。
 */
-process.env.NODE_ENV = 'production';
+// process.env.NODE_ENV = 'production';
 
 //通常electron应用会包含一个窗口
 let mainWindow;
@@ -32,12 +32,12 @@ app.on('ready',function(){
     });
 
     //加载html页面
-    mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname,'mainWindow.html'),
-        protocol: 'file:',
-        slashes: true
-    }));
-    // mainWindow.loadURL('https://www.baidu.com/');
+    // mainWindow.loadURL(url.format({
+    //     pathname: path.join(__dirname,'mainWindow.html'),
+    //     protocol: 'file:',
+    //     slashes: true
+    // }));
+    mainWindow.loadURL('http://localhost:8086/webrtc/test/from_mozilla_org/test.html');
 
     /*
     如果不加该事件处理，那么子窗口（添加学生窗口）打开，主窗口关闭的话，
