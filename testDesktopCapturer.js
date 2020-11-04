@@ -14,7 +14,7 @@ const {app, BrowserWindow, Menu, ipcMain} = electron;
 
 //通常electron应用会包含一个窗口
 let mainWindow;
-let StudentWindow,displayDeskTopWindow;
+let StudentWindow;
 
 
 ipcMain.on('mainWindow',(e,args) => {
@@ -88,33 +88,6 @@ function createStudentWindow(){
     });
 }
 
-//处理“显示桌面”菜单项事件：创建显示桌面窗口
-function createDisplayDesktopWindow(){
-    //创建显示桌面窗口，代码跟前面创建主窗口代码一样
-    displayDeskTopWindow = new BrowserWindow({
-        webPreferences: {
-            nodeIntegration: true
-        },
-        width: 500,
-        height: 400,
-        title:  '显示桌面'
-    });
-
-    //加载html页面
-    displayDeskTopWindow.loadURL(url.format({
-        pathname: path.join(__dirname,'displayDesktop.html'),
-        protocol: 'file:',
-        slashes: true
-    }));
-
-    /*
-    为了节省资源（————优化程序），子窗口关闭时，让其变为空。
-    这样垃圾收集器就会将子窗口占用的内存空间回收掉
-    */
-   displayDeskTopWindow.on('closed',function(){
-    displayDeskTopWindow = null;
-    });
-}
 
 /*
 接收来自createStudentWindow窗口的createStudentWindow.html页面的数据。
@@ -144,12 +117,6 @@ const menuTemplate = [
                 label: '添加学生',
                 click(){
                     createStudentWindow();
-                }
-            },
-            {
-                label: '显示桌面',
-                click(){
-                    createDisplayDesktopWindow();
                 }
             },
             {
@@ -190,7 +157,7 @@ if(process.platform == 'darwin'){
 console.log(`进程的id是： ${process.pid}`);
 // console.log(process)
 
-// console.log(process.versions.electron);
+console.log(process.versions.electron);
 
 /*
     如果应用不是在生产环境下，可以给应用控制打开Chrome自带的开发者工具功能，做法是
