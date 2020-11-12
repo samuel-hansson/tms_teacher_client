@@ -19,7 +19,7 @@ const server = require('http').createServer(
                 res.end(data);
             });
         }
-        console.log("a request incomming...");
+        console.log("a request incomming, http server detected!");
     }
 );
 
