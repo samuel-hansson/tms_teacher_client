@@ -40,3 +40,7 @@ function handleStream (stream) {
 function handleError (e) {
   console.log(e)
 }
+
+const socket = io("http://localhost:3050");
+// socket.open();
+
